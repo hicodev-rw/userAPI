@@ -10,12 +10,32 @@
 	</div>
 	{% endfor %}
 {% if user.is_authenticated %}
+
 	<h3>Hello {{ user.first_name }}</h3>
 	<h3>You are successfully logged in!</h3>
-	<a href="{% url 'signout' %}" class="btn btn-primary btn-block">Sign Out</a>
-	{% else %}
-	<a href="{% url 'signin' %}" class="btn btn-primary btn-block">Sign in</a>
-	<a href="{% url 'signup' %}" class="btn btn-primary btn-block">Sign up</a>
+
+	<table class="table table-bordered">
+		<tbody>
+		  <tr>
+			<td><a href="{% url 'signout' %}" class="btn btn-primary btn-block">Sign Out</a></td>
+		  </tr>
+		</tbody>
+		</table>
+		{% else %}
+		<table class="table table-bordered">
+			<tbody>
+		  <tr>
+			<td><a href="{% url 'signin' %}" class="btn btn-primary btn-block">Sign in</a>
+				</td>
+			<td><a href="{% url 'signup' %}" class="btn btn-primary btn-block">Sign up</a></td>
+		  </tr>
+		</tbody>
+		  </table
+
+	  
+	
+	
+	
 	{% endif %}
 </div>
   {% endblock %}
