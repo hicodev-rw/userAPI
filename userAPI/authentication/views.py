@@ -11,7 +11,7 @@ from userAPI import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str
 from . tokens import generate_token
 from django.core.mail import EmailMessage
 
@@ -67,12 +67,12 @@ def signup(request):
             # Email address confirmation email
             current_site = get_current_site(request)
             email_subject = "Confirm your email at Bytecode Velocity - Login"
-            message2 = render_to_string("email_confirmation.html"),{
+            message2 = render_to_string("email_confirmation.html",{
                 'name' : myuser.first_name,
                 'domain' : current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
                 'token': generate_token.make_token(myuser)
-            }
+            })
             email = EmailMessage(email_subject,
                                  message2,
                                  settings.EMAIL_HOST_USER,
@@ -109,7 +109,7 @@ def signout(request):
 
 def activate(request, uidb64, token):
     try:
-        uid = force_text(urlsafe_base64_decode(uid))
+        uid = force_str(urlsafe_base64_decode(uid))
         myuser  = User.objects.get(pk=uid)
     except(TypeError, ValueError,OverflowError,User.DoesNotExist):
         myuser = None
@@ -118,4 +118,6 @@ def activate(request, uidb64, token):
         myuser.save()
         login(request, myuser)
         return redirect('home')
+    else:
+        return render(request, 'activation_failed.html')
         
