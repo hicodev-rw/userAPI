@@ -1,8 +1,11 @@
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
+from userAPI import settings
+from django.core.mail import send_mail
 
 
 def home(request):
@@ -41,6 +44,14 @@ def signup(request):
             myuser.last_name = lastname
             myuser.save()
             messages.success(request, "Your account has been successfully created!")
+            
+            # welcome message
+            subject = "Welcome to bytecode velocity - login"
+            message = "hello "+myuser.first_name+" \n"+" Thank you for visiting our website \n we also sent you a confirmation email, please confirm your email in order to activate your account! \n\n\n Regards, Jean Claude HIRWA"
+            from_email = settings.EMAIL_HOST_USER
+            to_list = [myuser.email]
+            send_mail(subject, message, from_email,to_list, fail_silently=True)
+            
             return redirect('signin')
 
     return render(request, "signup.html")
