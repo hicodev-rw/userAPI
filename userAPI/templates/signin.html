@@ -2,11 +2,8 @@
 {% block content %}
 <div class="global-container">
 	{% for message in messages %}
-	<div class="zlert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-	<strong>Message:</strong>{{ message }}
-		<button type="button" class="close" data-dismis="alert" aria-label="Close">
-		<span arial-hidden="true">&times;</span>
-		</button>
+	<div class="zlert alert-{{ message.tags }} alert-danger fade show" role="alert">
+	{{ message }}
 	</div>
 	{% endfor %}
 <form action="/signin" method="POST">
