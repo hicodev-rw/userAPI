@@ -109,4 +109,4 @@ def signout(request):
 
 def activate(request, uidb64, token):
     try:
-        
+        uid = force_text
