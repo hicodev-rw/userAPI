@@ -10,7 +10,7 @@ from django.contrib.auth import login, logout, authenticate
 from userAPI import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from . tokens import generate_token
 from django.core.mail import EmailMessage
@@ -109,4 +109,13 @@ def signout(request):
 
 def activate(request, uidb64, token):
     try:
-        uid = force_text
+        uid = force_text(urlsafe_base64_decode(uid))
+        myuser  = User.objects.get(pk=uid)
+    except(TypeError, ValueError,OverflowError,User.DoesNotExist):
+        myuser = None
+    if myuser and generate_token.check_token(myuser, token):
+        myuser.is_active = True
+        myuser.save()
+        login(request, myuser)
+        return redirect('home')
+        
