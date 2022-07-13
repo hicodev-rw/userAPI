@@ -101,7 +101,7 @@ def signin(request):
             firstname = user.first_name
             return render(request, 'index.html', {'name':firstname})
         else:
-            messages.error(request, "Bad Confidential!")
+            messages.error(request, "Incorrect username or password!")
             
     return render(request, "signin.html")
 
