@@ -9,34 +9,36 @@
 	{{ message }}
 	</div></div>
   {% endfor %}
-  <div style="background-color: blue; padding: 20px;">
+  <div class="border border-primary" style="padding: 20px;margin-bottom:30px;">
 <form action="/signup" method="POST">
   {% csrf_token %}
   <div class="form-group">
-    <label>Username</label>
+    <label><b><h4>Username</b></h4></label>
     <input type="text" class="form-control" id="username" name="username" placeholder="Create username" required>
   </div>
   <div class="form-group">
-    <label>Fistname</label>
+    <label><b><h4>Fistname</b></h4></label>
     <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Fistname" required>
   </div>
   <div class="form-group">
-    <label>Lastname</label>
+    <label><b><h4>Lastname</b></h4></label>
     <input type="text" class="form-control" id="lastname" name="lastname" placeholder="LastName" required>
   </div>
     <div class="form-group">
-    <label>Email</label>
+    <label><b><h4>Email</b></h4></label>
     <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
   </div>
       <div class="form-group">
-    <label>Password</label>
+    <label><b><h4>Password</b></h4></label>
     <input type="password" class="form-control" id="password" name="password" required>
   </div>
       <div class="form-group">
-    <label>Confirm Password</label>
+    <label><b><h4>Confirm Password</b></h4></label>
     <input type="password" class="form-control" id="cpassword" name="cpassword" required>
   </div>
+  <div class="form-group">
   <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
 </form>
 </div></div></div>
   {% endblock %}

@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="d-flex justify-content-center" >
+	<div class="col-sm-8">
 <div class="global-container">
 	{% for message in messages %}
-	<div class="zlert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-	<strong>Message:</strong>{{ message }}
+	<div class="zlert alert-{{ message.tags }} fade show" role="alert">
+	{{ message }}
 		<button type="button" class="close" data-dismis="alert" aria-label="Close">
 		<span arial-hidden="true">&times;</span>
 		</button>
@@ -11,16 +13,14 @@
 	{% endfor %}
 {% if user.is_authenticated %}
 
-	<h3>Hello {{ user.first_name }}</h3>
-	<h3>You are successfully logged in!</h3>
-
-	<table class="table table-bordered">
-		<tbody>
-		  <tr>
-			<td><a href="{% url 'signout' %}" class="btn btn-primary btn-block">Sign Out</a></td>
-		  </tr>
-		</tbody>
-		</table>
+	<div class="card">
+		<h5 class="card-header">Hello {{ user.first_name }}</h5>
+		<div class="card-body">
+		  <h5 class="card-title">You are successfully logged in!</h5>
+		  <p class="card-text">Welcome to Bytecode velocity</p>
+		  <a href="{% url 'signout' %}" class="btn btn-primary">Log out</a>
+		</div>
+	  </div>
 		{% else %}
 		<table class="table table-bordered">
 			<tbody>
@@ -37,5 +37,5 @@
 	
 	
 	{% endif %}
-</div>
+</div></div></div>
   {% endblock %}
