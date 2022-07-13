@@ -62,6 +62,11 @@ def signup(request):
             to_list = [myuser.email]
             send_mail(subject, message, from_email,to_list, fail_silently=True )
             
+            uid = urlsafe_base64_encode(force_bytes(myuser.pk))
+            print(uid)
+            
+            token = generate_token.make_token(myuser)
+            print(token)
             
             
             # Email address confirmation email
@@ -76,9 +81,9 @@ def signup(request):
             email = EmailMessage(email_subject,
                                  message2,
                                  settings.EMAIL_HOST_USER,
-                                 myuser.email,
+                                 [myuser.email],
                                  )
-            email.fail_silently = True
+           #  email.fail_silently = True
             email.send()
             return redirect('signin')
 
@@ -109,7 +114,7 @@ def signout(request):
 
 def activate(request, uidb64, token):
     try:
-        uid = force_str(urlsafe_base64_decode(uid))
+        uid = force_str(urlsafe_base64_decode(uidb64))
         myuser  = User.objects.get(pk=uid)
     except(TypeError, ValueError,OverflowError,User.DoesNotExist):
         myuser = None
