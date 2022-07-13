@@ -1,3 +1,5 @@
+from lib2to3.pgen2.tokenize import generate_tokens
+from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -6,6 +8,11 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from userAPI import settings
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes, force_text
+from . tokens import generate_token
+
 
 
 def home(request):
@@ -42,6 +49,7 @@ def signup(request):
             myuser = User.objects.create_user(username, email, password)
             myuser.first_name = firstname
             myuser.last_name = lastname
+            myuser.is_active = False
             myuser.save()
             messages.success(request, "Your account has been successfully created. we have sent you a confirmation email, please confirm your email in order to activate your account!")
             
@@ -52,6 +60,17 @@ def signup(request):
             to_list = [myuser.email]
             send_mail(subject, message, from_email,to_list, fail_silently=True )
             
+            
+            
+            # Email address confirmation email
+            current_site = get_current_site(request)
+            email_subject = "Confirm your email at Bytecode Velocity - Login"
+            message2 = render_to_string("email_confirmation.html"),{
+                'name' : myuser.first_name,
+                'domain' : current_site.domain,
+                'uid': urlsafe_base64_encode(force_byte(myuser.pk)),
+                'token': generate_token.make_token(myuser)
+            }
             return redirect('signin')
 
     return render(request, "signup.html")
