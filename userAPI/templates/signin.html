@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="d-flex justify-content-center">
 <div class="global-container">
 	{% for message in messages %}
 	<div class="zlert alert-{{ message.tags }} alert-danger fade show" role="alert">
@@ -19,4 +20,5 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div>
   {% endblock %}
