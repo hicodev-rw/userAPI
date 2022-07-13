@@ -106,3 +106,7 @@ def signout(request):
     messages.success(request,"You are successfully logged out")
     return redirect('home')
 
+
+def activate(request, uidb64, token):
+    try:
+        
