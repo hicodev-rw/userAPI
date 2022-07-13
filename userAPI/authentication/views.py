@@ -1,4 +1,5 @@
-from lib2to3.pgen2.tokenize import generate_tokens
+from email.message import EmailMessage
+# from lib2to3.pgen2.tokenize import generate_tokens
 from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
 from django.http import HttpResponse
@@ -12,6 +13,7 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_text
 from . tokens import generate_token
+from django.core.mail import EmailMessage
 
 
 
@@ -68,9 +70,16 @@ def signup(request):
             message2 = render_to_string("email_confirmation.html"),{
                 'name' : myuser.first_name,
                 'domain' : current_site.domain,
-                'uid': urlsafe_base64_encode(force_byte(myuser.pk)),
+                'uid': urlsafe_base64_encode(force_bytes(myuser.pk)),
                 'token': generate_token.make_token(myuser)
             }
+            email = EmailMessage(email_subject,
+                                 message2,
+                                 settings.EMAIL_HOST_USER,
+                                 myuser.email,
+                                 )
+            email.fail_silently = True
+            email.send()
             return redirect('signin')
 
     return render(request, "signup.html")

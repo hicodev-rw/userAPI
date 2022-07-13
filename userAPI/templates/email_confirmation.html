@@ -1,0 +1,11 @@
+{% autoescape off %}
+
+Welcome to Bytecode velocity login
+
+Hello {{name}}!
+
+Please confirm email by clicking on the following link.
+
+Confirm link: http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+{% endautoescape %}
