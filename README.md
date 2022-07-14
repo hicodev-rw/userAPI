@@ -4,6 +4,11 @@
 
 # The project can send email to activate the user's account
 # we use postgresql as data source
+# you can try it yourself
+# installed pip:
+# -----------> Django
+# -----------> psycopg2
+# ----------->six
 
 # By:
 # HIRWA Jean Claude || Bytecode Velocity
