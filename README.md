@@ -3,6 +3,7 @@
 # User API sub-project for authenticating users using django
 
 # The project can send email to activate the user's account
+# we use postgresql as data source
 
 # By:
 # HIRWA Jean Claude || Bytecode Velocity
