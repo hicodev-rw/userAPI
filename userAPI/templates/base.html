@@ -10,18 +10,20 @@
 <link rel="stylesheet" href="style.css">
     <title>User API</title>
   </head>
-  <body style="
-  padding: 50px;
-
-  background-image: url(https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2018/11/dark-wallpapers.jpg?q=50&fit=contain&w=1500&h=750&dpr=1.5);
-  background-repeat: no-repeat;
-  background-position: top right;
-  background-size: cover;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light"><h2><b>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position:fixed;width:100%; z-index: 100;"><h2><b>
       <a class="navbar-brand" href="#">USER API Django</a></b></h2>
     </nav>
+  <div style="
+  padding: 50px;
+  background-image: url(https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2018/11/dark-wallpapers.jpg?q=50&fit=contain&w=1500&h=750&dpr=1.5);
+  background-repeat: no-repeat;
+  background-attachment:fixed;
+  background-position: top right;
+  background-size: cover;">
   {% block content %}
 {% endblock %}
+  </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
